@@ -5,6 +5,7 @@
 package frame;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 /**
@@ -19,21 +20,26 @@ public class interface_car extends javax.swing.JFrame {
     public interface_car() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         JRadioButton radioButton1 = new JRadioButton("Opción 1");
         JRadioButton radioButton2 = new JRadioButton("Opción 2");
         JRadioButton radioButton3 = new JRadioButton("Opción 3");
-
 
         ButtonGroup group = new ButtonGroup();
         group.add(pickup);
         group.add(suv);
         group.add(sedan);
-        
-        
 
-        radioButton2.setSelected(true);  
+        ButtonGroup grupoTiempo = new ButtonGroup();
+        grupoTiempo.add(horas);
+        grupoTiempo.add(minutos);
 
+        radioButton2.setSelected(true);
+
+        int horasMtos = 0;
+
+        hours_minutes2.setVisible(false);
+        hours_minutes1.setVisible(false);
     }
 
     /**
@@ -59,30 +65,69 @@ public class interface_car extends javax.swing.JFrame {
         dni = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         time = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        timeMutes_hours = new javax.swing.JLabel();
         direction1 = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
         pickup = new javax.swing.JRadioButton();
         suv = new javax.swing.JRadioButton();
         sedan = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        nombre = new javax.swing.JLabel();
+        apellido = new javax.swing.JLabel();
+        dnitxt = new javax.swing.JLabel();
+        direccion = new javax.swing.JLabel();
+        tipoV = new javax.swing.JLabel();
+        tiempoPARQUEO = new javax.swing.JLabel();
+        totalCancelar = new javax.swing.JLabel();
+        llegoTArde = new javax.swing.JButton();
+        hours_minutes2 = new javax.swing.JLabel();
+        hours_minutes1 = new javax.swing.JLabel();
+        calularNuevamente = new javax.swing.JButton();
+        horas = new javax.swing.JRadioButton();
+        minutos = new javax.swing.JRadioButton();
+        horasMtosCalular = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("parqueo de carros");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, -1, -1));
+        getContentPane().add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 85, 97, -1));
 
         jLabel2.setText("nombre");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 63, -1, -1));
 
         jLabel6.setText("apellido");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, -1));
+        getContentPane().add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 94, -1));
 
         jLabel7.setText("tipo de veiculo");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
+        getContentPane().add(type_car, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 94, -1));
 
         jLabel8.setText("Dni");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+        getContentPane().add(dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 94, -1));
 
         jLabel9.setText("direccion");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
 
-        jLabel10.setText("tiempo");
+        time.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                timeMouseClicked(evt);
+            }
+        });
+        time.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(time, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 94, -1));
+
+        timeMutes_hours.setText("tiempo");
+        getContentPane().add(timeMutes_hours, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+        getContentPane().add(direction1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 94, -1));
 
         pickup.setText("pickup");
         pickup.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +135,7 @@ public class interface_car extends javax.swing.JFrame {
                 pickupActionPerformed(evt);
             }
         });
+        getContentPane().add(pickup, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
 
         suv.setText("suv");
         suv.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +143,7 @@ public class interface_car extends javax.swing.JFrame {
                 suvActionPerformed(evt);
             }
         });
+        getContentPane().add(suv, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, -1, -1));
 
         sedan.setText("sedan");
         sedan.addActionListener(new java.awt.event.ActionListener() {
@@ -104,151 +151,239 @@ public class interface_car extends javax.swing.JFrame {
                 sedanActionPerformed(evt);
             }
         });
+        getContentPane().add(sedan, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
 
         jLabel3.setText("veiculos recurrentes");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(sedan)
-                    .addComponent(suv)
-                    .addComponent(pickup))
-                .addContainerGap(35, Short.MAX_VALUE))
+        jLabel5.setText("Datos completos");
+
+        nombre.setText("nombre :");
+
+        apellido.setText("apellido");
+
+        dnitxt.setText("dni");
+
+        direccion.setText("direccion");
+
+        tipoV.setText("tipo de veiculo");
+
+        tiempoPARQUEO.setText("tiempo de parqueo");
+
+        totalCancelar.setText("total a cancelar :");
+
+        llegoTArde.setText("llego tarde");
+        llegoTArde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                llegoTArdeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(totalCancelar)
+                            .addComponent(tiempoPARQUEO)
+                            .addComponent(tipoV)
+                            .addComponent(direccion)
+                            .addComponent(dnitxt)
+                            .addComponent(apellido)
+                            .addComponent(nombre)
+                            .addComponent(jLabel5)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(llegoTArde)))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addGap(5, 5, 5)
-                .addComponent(pickup)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(suv)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sedan)
-                .addContainerGap(47, Short.MAX_VALUE))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(nombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(apellido)
+                .addGap(18, 18, 18)
+                .addComponent(dnitxt)
+                .addGap(18, 18, 18)
+                .addComponent(direccion)
+                .addGap(18, 18, 18)
+                .addComponent(tipoV)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tiempoPARQUEO)
+                .addGap(18, 18, 18)
+                .addComponent(totalCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(llegoTArde))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 250, 310));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(54, 54, 54)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(direction1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(65, 65, 65)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(84, 84, 84))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(62, 62, 62)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(54, 54, 54)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(type_car, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)))
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(last_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(type_car, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(direction1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel10))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
-        );
+        hours_minutes2.setText("horas mtos");
+        getContentPane().add(hours_minutes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 20, -1, -1));
+
+        hours_minutes1.setText("horas mtos");
+        getContentPane().add(hours_minutes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, -1, -1));
+
+        calularNuevamente.setText("calcular monto total");
+        calularNuevamente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calularNuevamenteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(calularNuevamente, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, -1, -1));
+
+        horas.setText("horas");
+        horas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                horasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(horas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+
+        minutos.setText("minutos");
+        minutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minutosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(minutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
+
+        horasMtosCalular.setText("calcular horas");
+        getContentPane().add(horasMtosCalular, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void pickupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupActionPerformed
- type_car.setText("pickup");
+        type_car.setText("pickup");
     }//GEN-LAST:event_pickupActionPerformed
 
     private void suvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suvActionPerformed
- type_car.setText("suv");
+        type_car.setText("suv");
     }//GEN-LAST:event_suvActionPerformed
 
     private void sedanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sedanActionPerformed
- type_car.setText("sedan");
+        type_car.setText("sedan");
     }//GEN-LAST:event_sedanActionPerformed
+
+    private void horasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horasActionPerformed
+        timeMutes_hours.setText("ingrese las horas de parqueo");
+        if (time.getText().isEmpty()) {
+            minutos.setSelected(false);
+            JOptionPane.showMessageDialog(null, "ingrese campo requerido", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            horasMtosCalular.setText(" las horas de parqueo son " + time.getText());
+            hours_minutes1.setText(time.getText());
+            hours_minutes2.setText("0");
+            calularNuevamente.setText("calular nuevamente");
+            tiempoPARQUEO.setText("");
+        }
+
+    }//GEN-LAST:event_horasActionPerformed
+
+    private void minutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minutosActionPerformed
+        timeMutes_hours.setText("ingrese las en minutos de parqueo");
+
+        if (time.getText().isEmpty()) {
+            minutos.setSelected(false);
+            JOptionPane.showMessageDialog(null, "ingrese campo requerido", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int minutos = Integer.parseInt(time.getText());
+            int horas = minutos / 60;
+            int restantes = minutos % 60;
+            horasMtosCalular.setText(" las horas de parqueo son " + horas + " y los minutos son " + restantes);
+            hours_minutes1.setText(Integer.toString(horas));
+            hours_minutes2.setText(Integer.toString(restantes));
+            calularNuevamente.setText("calular nuevamente");
+            tiempoPARQUEO.setText("");
+        }
+
+    }//GEN-LAST:event_minutosActionPerformed
+
+    private void timeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeActionPerformed
+
+    }//GEN-LAST:event_timeActionPerformed
+
+    private void timeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timeMouseClicked
+
+    }//GEN-LAST:event_timeMouseClicked
+
+    private void calularNuevamenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calularNuevamenteActionPerformed
+
+        int horas = Integer.parseInt(hours_minutes1.getText());
+        int minutos = Integer.parseInt(hours_minutes2.getText());
+
+        if (horas <= 1) {
+            JOptionPane.showMessageDialog(null, "las horas de parqueo tiene que ser maryor a 1 hora", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            time.getText();
+            nombre.setText(name.getText());
+            apellido.setText("apellido del popietario : " + last_name.getText());
+            nombre.setText("nombre del popietario : " + name.getText());
+            dnitxt.setText("dni del propietario : " + dni.getText());
+            tipoV.setText("tipo de veiculo : " + type_car.getText());
+            direccion.setText("direccion del usuario: " + direction1.getText());
+            tiempoPARQUEO.setText("tiempo de parqueo : " + horas + " : " + minutos);
+            double preciofinal = calcularprecio(horas, minutos, type_car.getText());
+            totalCancelar.setText("total a cancelar : " + String.format("%.2f", preciofinal));
+            System.out.println("El precio es " + preciofinal);
+
+        }
+
+    }//GEN-LAST:event_calularNuevamenteActionPerformed
+
+    private void llegoTArdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llegoTArdeActionPerformed
+
+        String texto = totalCancelar.getText();
+        texto = texto.replaceAll("[^0-9.]", "");
+
+        if (!texto.isEmpty()) {
+            double montoOriginal = Double.parseDouble(texto);
+            double totalConRecargo = montoOriginal + (montoOriginal * 0.15); // Aumenta 15%
+
+            totalCancelar.setText(String.format("nuevo precio a cancelar mas el 15% add" + "%.2f", totalConRecargo));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese un monto válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_llegoTArdeActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    private double calcularprecio(int horas, int minutos, String tipoV) {
+        double precio = 0;
+        //total a cancelar
+        switch (tipoV.toLowerCase()) {
+            case "pickup":
+                //25 por 60
+                precio = 25;
+                break;
+
+            case "suv":
+                //40 por 60
+                precio = 40;
+                break;
+
+            case "sedan":
+                //20 por 60   
+                precio = 20;
+                break;
+            default:
+                return 0;
+        }
+        double precioTotal = (horas + minutos / 60.0) * precio;
+        return precioTotal;
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -282,27 +417,41 @@ public class interface_car extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel apellido;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.JButton calularNuevamente;
+    private javax.swing.JLabel direccion;
     private javax.swing.JTextField direction1;
     private javax.swing.JTextField dni;
+    private javax.swing.JLabel dnitxt;
+    private javax.swing.JRadioButton horas;
+    private javax.swing.JLabel horasMtosCalular;
+    private javax.swing.JLabel hours_minutes1;
+    private javax.swing.JLabel hours_minutes2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField last_name;
+    private javax.swing.JButton llegoTArde;
+    private javax.swing.JRadioButton minutos;
     private javax.swing.JTextField name;
+    private javax.swing.JLabel nombre;
     private javax.swing.JRadioButton pickup;
     private javax.swing.JRadioButton sedan;
     private javax.swing.JRadioButton suv;
+    private javax.swing.JLabel tiempoPARQUEO;
     private javax.swing.JTextField time;
+    private javax.swing.JLabel timeMutes_hours;
+    private javax.swing.JLabel tipoV;
+    private javax.swing.JLabel totalCancelar;
     private javax.swing.JTextField type_car;
     // End of variables declaration//GEN-END:variables
 }
